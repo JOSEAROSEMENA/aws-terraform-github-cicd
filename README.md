@@ -5,8 +5,21 @@ Practice repo for AWS networking infrastructure with Terraform and GitHub Action
 ## Structure
 
 ```text
+bootstrap/backend/   One-time S3 bucket bootstrap for Terraform remote state
 modules/networking/  Reusable VPC, subnet, internet gateway, and route table module
 envs/dev/            Dev environment root configuration
+```
+
+## Backend Bootstrap
+
+Create the remote state bucket before configuring `envs/dev` to use it:
+
+```bash
+cd bootstrap/backend
+cp terraform.tfvars.example terraform.tfvars
+# Edit terraform.tfvars and choose a globally unique state_bucket_name.
+terraform init
+terraform apply
 ```
 
 ## Dev commands
