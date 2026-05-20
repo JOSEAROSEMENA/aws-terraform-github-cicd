@@ -1,12 +1,12 @@
 ###############################################
 # Core Networking Resources
 #
-# This file intentionally uses explicit resources with comments
+# This module intentionally uses explicit resources with comments
 # so you can learn what each building block does.
 ###############################################
 
 ########################
-# VPC 
+# VPC
 ########################
 resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr
@@ -21,7 +21,7 @@ resource "aws_vpc" "main" {
 }
 
 ########################
-# Public Subnets 
+# Public Subnets
 ########################
 resource "aws_subnet" "public_1" {
   vpc_id                  = aws_vpc.main.id
@@ -52,7 +52,7 @@ resource "aws_subnet" "public_2" {
 }
 
 ########################
-# Private Subnets 
+# Private Subnets
 ########################
 resource "aws_subnet" "private_1" {
   vpc_id                  = aws_vpc.main.id
@@ -83,7 +83,7 @@ resource "aws_subnet" "private_2" {
 }
 
 ########################
-# Internet Gateway 
+# Internet Gateway
 ########################
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
@@ -96,7 +96,7 @@ resource "aws_internet_gateway" "main" {
 }
 
 ########################
-# Public Route Table + Default Route 
+# Public Route Table + Default Route
 ########################
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
@@ -126,7 +126,7 @@ resource "aws_route_table_association" "public_2" {
 }
 
 ########################
-# Private Route Table (Step 7)
+# Private Route Table
 ########################
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id

@@ -1,8 +1,5 @@
 ###############################################
-# Outputs
-#
-# Helpful IDs to confirm what Terraform created and to reuse
-# these resources in later modules/stacks.
+# Networking Module Outputs
 ###############################################
 
 output "vpc_id" {
