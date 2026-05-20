@@ -1,0 +1,54 @@
+name: Terraform PR
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+      - "envs/dev/**"
+      - "modules/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  TF_VERSION: "1.15.4"
+  AWS_REGION: "us-east-1"
+
+jobs:
+  plan:
+    name: Format, Validate, Plan
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: envs/dev
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      # Create this secret after creating the GitHub Actions OIDC role in AWS.
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+
+      - name: Terraform init
+        run: terraform init -input=false
+
+      - name: Terraform validate
+        run: terraform validate
+
+      - name: Terraform plan
+        run: terraform plan -input=false -no-color

@@ -33,3 +33,20 @@ terraform fmt -recursive
 terraform validate
 terraform plan
 ```
+
+## GitHub Actions
+
+This repo includes two Terraform workflows:
+
+```text
+.github/workflows/terraform-pr.yml    Runs fmt, init, validate, and plan on pull requests
+.github/workflows/terraform-main.yml  Runs fmt, init, validate, plan, and apply on main
+```
+
+The workflows expect GitHub Actions to assume an AWS IAM role through OIDC. Add this repository secret after creating the role in AWS:
+
+```text
+AWS_GITHUB_ACTIONS_ROLE_ARN
+```
+
+The main workflow targets the `dev` GitHub Environment. Configure that environment in GitHub if you want a manual approval gate before `terraform apply`.
