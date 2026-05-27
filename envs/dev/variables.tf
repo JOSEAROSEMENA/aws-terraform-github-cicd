@@ -61,3 +61,21 @@ variable "private_subnet_cidr_2" {
   type        = string
   default     = "10.0.12.0/24"
 }
+
+variable "networking_operator_trusted_principal_arns" {
+  description = "AWS principal ARNs allowed to assume the networking operator role. Defaults to the current AWS account root principal."
+  type        = list(string)
+  default     = []
+}
+
+variable "networking_operator_max_session_duration" {
+  description = "Maximum session duration, in seconds, for the networking operator role"
+  type        = number
+  default     = 3600
+}
+
+variable "flow_logs_log_group_name_prefix" {
+  description = "CloudWatch Logs log group name prefix the IAM policies allow for VPC Flow Logs"
+  type        = string
+  default     = "/aws/vpc/flow-logs/"
+}

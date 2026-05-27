@@ -31,3 +31,18 @@ output "private_route_table_id" {
   description = "Route table ID for private subnets"
   value       = module.networking.private_route_table_id
 }
+
+output "networking_operator_role_arn" {
+  description = "ARN of the networking operator IAM role"
+  value       = module.iam.networking_operator_role_arn
+}
+
+output "networking_operator_policy_arn" {
+  description = "ARN of the networking operator IAM policy"
+  value       = module.iam.networking_operator_policy_arn
+}
+
+output "vpc_flow_logs_publisher_role_arn" {
+  description = "ARN of the VPC Flow Logs publisher IAM role"
+  value       = module.iam.vpc_flow_logs_publisher_role_arn
+}

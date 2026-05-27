@@ -20,3 +20,14 @@ module "networking" {
   private_subnet_cidr_1 = var.private_subnet_cidr_1
   private_subnet_cidr_2 = var.private_subnet_cidr_2
 }
+
+module "iam" {
+  source = "../../modules/iam"
+
+  project_name = var.project_name
+  environment  = var.environment
+
+  networking_operator_trusted_principal_arns = var.networking_operator_trusted_principal_arns
+  networking_operator_max_session_duration   = var.networking_operator_max_session_duration
+  flow_logs_log_group_name_prefix            = var.flow_logs_log_group_name_prefix
+}
